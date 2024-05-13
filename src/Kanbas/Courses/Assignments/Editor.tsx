@@ -19,6 +19,9 @@ export default function AssignmentEditor() {
                 The Kanbas application should include a link
                 to navigate back to the landing page.
             </textarea>
+            <div>
+
+            </div>
             <br />
             <table>
                 <tr>
@@ -84,23 +87,23 @@ export default function AssignmentEditor() {
 
 
                             <input type="checkbox"
-                                name="check-genre" id="wd-text-entry" />
+                                name="check-text-entry" id="wd-text-entry" />
                             <label htmlFor="wd-text-entry">Text Entry</label><br />
 
                             <input type="checkbox"
-                                name="check-genre" id="wd-website-url	" />
+                                name="check-website-url" id="wd-website-url" />
                             <label htmlFor="wd-website-url	">Website URL</label><br />
 
                             <input type="checkbox"
-                                name="check-genre" id="wd-media-recordings" />
+                                name="check-media-recordings" id="wd-media-recordings" />
                             <label htmlFor="wd-media-recordings">Media Recordings</label><br />
 
                             <input type="checkbox"
-                                name="check-genre" id="wd-student-annotation" />
+                                name="check-student-annotation" id="wd-student-annotation" />
                             <label htmlFor="wd-student-annotation">Student Annotation</label><br />
 
                             <input type="checkbox"
-                                name="check-genre" id="wd-file-upload" />
+                                name="check-file-upload" id="wd-file-upload" />
                             <label htmlFor="wd-file-upload">File Uploads</label><br />
 
 
@@ -112,7 +115,7 @@ export default function AssignmentEditor() {
                     </td>
                 </tr>
 
-
+                <br></br>
                 <tr>
 
 
@@ -149,7 +152,7 @@ export default function AssignmentEditor() {
 
                         <td>
 
-                            <label htmlFor="wd-available-until">Available from</label>
+                            <label htmlFor="wd-available-from">Available from</label>
                             <br></br>
                             <input type="date"
                                 id="wd-available-from"
@@ -158,7 +161,7 @@ export default function AssignmentEditor() {
                         </td>
 
                         <td>
-                            <label htmlFor="wd-available-from">Until</label>
+                            <label htmlFor="wd-available-until">Until</label>
                             <br></br>
                             <input type="date"
                                 id="wd-available-until"

@@ -15,7 +15,7 @@ export default function Lists() {
                 <li>Serve and enjoy!</li>
             </ol>
 
-            How to make PB&J:
+            My favorite recipe:
             <ol id="wd-your-favorite-recipe">
                 <li>Spread peanut butter on a slice of bread.</li>
                 <li>Spread jelly on a slice of bread.</li>
