@@ -7,6 +7,7 @@ import TOC from "./TOC";
 export default function Labs() {
     return (
         <div>
+            <h1>Tyler Lam WEBDEV SU1 2024</h1>
             <h1>Labs</h1>
             <TOC />
             <Routes>
