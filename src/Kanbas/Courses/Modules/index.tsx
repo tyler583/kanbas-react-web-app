@@ -1,7 +1,10 @@
 export default function Modules() {
     return (
+    
+            
         <div>
             {/* Collapse All button, View Progress button, etc. */}
+            
 
             <button id="wd-collapse-all" onClick={() => alert("Collapse All PlaceHolder")} type="button">
                 Collapse All
@@ -45,5 +48,6 @@ export default function Modules() {
                 </li>
             </ul>
         </div>
+        
     );
 }
