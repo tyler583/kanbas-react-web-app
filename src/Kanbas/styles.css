@@ -1,0 +1,53 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body * {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#wd-modules .btn-secondary {
+    --bs-btn-color: #000;
+    --bs-btn-bg: #c7cdd1;
+    --bs-btn-border-color: #c7cdd1;
+    --bs-btn-hover-color: #fff;
+}
+
+#wd-modules .bg-secondary {
+    background-color: #c7cdd1 !important;
+}
+
+#wd-modules .border-gray {
+    border: 1px solid gray !important;
+}
+
+#wd-assignments .btn-secondary {
+    --bs-btn-color: #000;
+    --bs-btn-bg: #c7cdd1;
+    --bs-btn-border-color: #c7cdd1;
+    --bs-btn-hover-color: #fff;
+}
+
+#wd-assignments .bg-secondary {
+    background-color: #c7cdd1 !important;
+}
+
+#wd-assignments .border-gray {
+    border: 1px solid gray !important;
+}
+
+#wd-grades .btn-secondary {
+    --bs-btn-color: #000;
+    --bs-btn-bg: #c7cdd1;
+    --bs-btn-border-color: #c7cdd1;
+    --bs-btn-hover-color: #fff;
+}
+
+#wd-grades .bg-secondary {
+    background-color: #c7cdd1 !important;
+}
+
+#wd-grades .border-gray {
+    border: 1px solid gray !important;
+}
