@@ -1,28 +1,44 @@
+import React from 'react';
+import { useParams, Link } from 'react-router-dom';
+import assignmentsData from '../../Database/assignments.json';
+import './styles.css';
+
 
 export default function AssignmentEditor() {
+    const assignments = assignmentsData as { _id: string; title: string; course: string }[];
+
+    const { cid } = useParams();
+
+    const courseAssignments = assignments.filter(assignment => assignment.course === cid);
+
+    const assignment = courseAssignments[0];
+
     return (
         <div className="container" id="wd-assignments-editor" style={{ height: '80vh', overflowY: 'auto' }}>
             <div className="mb-3">
                 <label htmlFor="wd-name" className="form-label">
                     <h4>Assignment Name</h4>
                 </label>
-                <input type="text" id="wd-name" value="A1 - ENV + HTML" className="form-control" />
+                <input type="text" id="wd-name" value={assignment.title} className="form-control" readOnly />
             </div>
             <div className="mb-3">
                 <label htmlFor="wd-description" className="form-label">
                     <h4>Assignment Description</h4>
                 </label>
-                <textarea id="wd-description" cols={45} rows={9} className="form-control">
-                    The assignment is available online. Submit a
-                    link to the landing page of your Web
-                    application running on Netlify. The landing
-                    page should include the following: Your full
-                    name and section Links to each of the lab
-                    assignments Link to the Kanbas application
-                    Links to all relevant source code repositories
-                    The Kanbas application should include a link
-                    to navigate back to the landing page.
-                </textarea>
+                <textarea id="wd-description" cols={45} rows={9} className="form-control"
+                    defaultValue={
+                        `The assignment is available online
+
+Submit a link to the landing page of your Web application running on Netlify.
+                
+The landing page should include the following:
+    - Your full name and section
+    - Links to each of the lab assignments
+    - Link to the Kanbas application
+    - Links to all relevant source code repositories
+                
+The Kanbas application should include a link to navigate back to the landing page.`}
+                />
             </div>
 
             <div className="row mb-3">
@@ -69,9 +85,8 @@ export default function AssignmentEditor() {
                     </select>
 
                     <div>
-                        <br></br>
+                        <br />
                     </div>
-
 
                     <label className="form-label">Online Entry Options</label>
                     <div className="form-check">
@@ -98,23 +113,19 @@ export default function AssignmentEditor() {
             </div>
 
             <div className="row mb-3">
-
                 <div className="col-auto align-self-start">
                     <label htmlFor="wd-submission-type" className="form-label">Assign</label>
                 </div>
-
                 <div className="col">
-
-
                     <label htmlFor="wd-assign-to" className="form-label">Assign to</label>
-                    <input type="text" id="wd-assign-to" value="Everyone    X" className="form-control" />
+                    <input type="text" id="wd-assign-to" value="Everyone" className="form-control" />
 
-                    <br></br>
+                    <br />
 
                     <label htmlFor="wd-due-date" className="form-label">Due</label>
                     <input type="date" id="wd-due-date" value="2024-05-13" className="form-control" />
 
-                    <br></br>
+                    <br />
 
                     <div className="d-flex">
                         <div className="col me-2">
@@ -125,27 +136,14 @@ export default function AssignmentEditor() {
                             <label htmlFor="wd-available-until" className="form-label">Until</label>
                             <input type="date" id="wd-available-until" value="2024-05-20" className="form-control" />
                         </div>
-
                     </div>
-
                 </div>
-
-
-
-
-
             </div>
-
-
-
-
-
-
 
             <hr />
             <div className="d-flex justify-content-end">
-                <button id="wd-assignment-cancel" className="btn btn-secondary me-2">Cancel</button>
-                <button id="wd-assignment-save" className="btn btn-success">Save</button>
+                <Link to={`/Kanbas/Courses/${cid}/Assignments`} id="wd-assignment-cancel" className="btn btn-secondary me-2">Cancel</Link>
+                <Link to={`/Kanbas/Courses/${cid}/Assignments`} id="wd-assignment-save" className="btn btn-success">Save</Link>
             </div>
         </div>
     );

@@ -1,9 +1,29 @@
+import React from "react";
 import { FaSearch } from "react-icons/fa";
 import GradesControlButtons from "./GradesControlButtons";
 import "./styles.css";
 import { CiFilter } from "react-icons/ci";
+import { useParams } from "react-router-dom";
+import * as db from "../../Database";
 
 export default function Grades() {
+    const { cid } = useParams(); 
+
+    const database = db as any;
+
+    const enrolledStudents = database.enrollments
+        .filter((enrollment: any) => enrollment.course === cid)
+        .map((enrollment: any) => {
+            const user = database.users.find((user: any) => user._id === enrollment.user);
+            return { ...user, enrollmentId: enrollment._id };
+        });
+
+    const courseGrades = database.grades.filter((grade: any) =>
+        enrolledStudents.some((student: any) => student._id === grade.student)
+    );
+
+    const courseAssignments = database.assignments.filter((assignment: any) => assignment.course === cid);
+
     return (
         <div id="wd-grades">
             <br></br>
@@ -16,12 +36,9 @@ export default function Grades() {
                             <div className="col me-2">
                                 <label htmlFor="wd-search-students" className="form-label">
                                     <strong>
-                                        <h5>
-                                            Student Names
-                                        </h5>
+                                        <h5>Student Names</h5>
                                     </strong>
                                 </label>
-
                                 <div className="input-group">
                                     <span className="input-group-text bg-white border-end-0">
                                         <FaSearch />
@@ -38,9 +55,7 @@ export default function Grades() {
                             <div className="col">
                                 <label htmlFor="wd-search-assignments" className="form-label">
                                     <strong>
-                                        <h5>
-                                            Assignment Names
-                                        </h5>
+                                        <h5>Assignment Names</h5>
                                     </strong>
                                 </label>
                                 <div className="input-group">
@@ -51,23 +66,21 @@ export default function Grades() {
                                         id="wd-search-assignments"
                                         className="form-control border-start-0"
                                         type="text"
-                                        placeholder="Search Students"
+                                        placeholder="Search Assignments"
                                     />
                                 </div>
                             </div>
-
                         </div>
-
+                        <br />
                     </div>
 
-                    <div></div><br></br>
+                    
 
                     <div className="row mb-3">
                         <button id="wd-import" className="me-1 btn btn-lg btn-secondary" style={{ maxWidth: "200px" }}>
                             <CiFilter className="me-2 fs-2" />
                             Apply Filters
                         </button>
-
                     </div>
 
                     <div className="row mb-3">
@@ -76,55 +89,27 @@ export default function Grades() {
                                 <thead>
                                     <tr>
                                         <th>Student Name</th>
-                                        <th>A1 SETUP <br />Out of 100</th>
-                                        <th>A2 HTML <br />Out of 100</th>
-                                        <th>A3 CSS <br />Out of 100</th>
-                                        <th>A4 BOOTSTRAP <br />Out of 100</th>
+                                        {courseAssignments.map((assignment: any) => (
+                                            <th key={assignment._id}>
+                                                {assignment.title} <br />Out of 100
+                                            </th>
+                                        ))}
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Jane Adams</td>
-                                        <td>100</td>
-                                        <td>96.67</td>
-                                        <td>92.18</td>
-                                        <td>66.22</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Christina Allen</td>
-                                        <td>100</td>
-                                        <td>100</td>
-                                        <td>100</td>
-                                        <td>100</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Samreen Ansari</td>
-                                        <td>100</td>
-                                        <td>100</td>
-                                        <td>100</td>
-                                        <td>100</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Han Bao</td>
-                                        <td>100</td>
-                                        <td>100</td>
-                                        <td><input type="number" className="form-control" defaultValue="88.03" /></td>
-                                        <td>98.99</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mahi Sai Srinivas Bobbili</td>
-                                        <td>100</td>
-                                        <td>96.67</td>
-                                        <td>98.37</td>
-                                        <td>100</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Siran Cao</td>
-                                        <td>100</td>
-                                        <td>100</td>
-                                        <td>100</td>
-                                        <td>100</td>
-                                    </tr>
+                                    {enrolledStudents.map((student: any) => (
+                                        <tr key={student._id}>
+                                            <td>{student.firstName} {student.lastName}</td>
+                                            {courseAssignments.map((assignment: any) => {
+                                                const grade = courseGrades.find((g: any) => g.student === student._id && g.assignment === assignment._id);
+                                                return (
+                                                    <td key={assignment._id}>
+                                                        {grade ? grade.grade : '- / 100'}
+                                                    </td>
+                                                );
+                                            })}
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </div>
@@ -134,6 +119,3 @@ export default function Grades() {
         </div>
     );
 }
-
-
-

@@ -1,24 +1,25 @@
 import CoursesNavigation from "./Navigation";
 import Modules from "./Modules";
 import Home from "./Home";
-import { Navigate, Route, Routes } from "react-router";
 import Assignments from "./Assignments";
 import AssignmentEditor from "./Assignments/Editor";
-import { RxHamburgerMenu } from "react-icons/rx";
 import Grades from "./GradesScreen/Grades";
+import { courses } from "../Database";
+import { FaAlignJustify } from "react-icons/fa6";
+import { Navigate, Route, Routes, useParams, useLocation } from "react-router";
+
 
 export default function Courses() {
+    const { cid } = useParams();
+    const course = courses.find((course) => course._id === cid);
+    const { pathname } = useLocation();
     return (
         <div id="wd-courses">
 
-            <div className="wd-flex-row-container">
-                <div className="icon-container">
-                <RxHamburgerMenu className="fs-2"/>
-                </div>
-                <div className="ms-2">
-                <h2>Course 1234</h2>
-                </div>
-            </div>
+            <h2 className="text-danger">
+                <FaAlignJustify className="me-4 fs-4 mb-1" />
+                {course && course.name} &gt; {pathname.split("/")[4]}
+            </h2>
 
             <hr />
             <div className="d-flex">
