@@ -1,7 +1,11 @@
 import { FaSearch } from "react-icons/fa";
 import "./styles.css";
 
-export default function AssignmentsControls() {
+export default function AssignmentsControls({
+    addAssignment,
+}: {
+    addAssignment: () => void;
+}) {
     return (
         <div id="wd-assignments" className="d-flex justify-content-between align-items-center mb-3">
 
@@ -22,7 +26,7 @@ export default function AssignmentsControls() {
                 <button id="wd-add-assignment-group" className="btn btn-lg btn-secondary me-1">
                     + Group
                 </button>
-                <button id="wd-add-assignment" className="btn btn-lg btn-danger me-1">
+                <button id="wd-add-assignment" className="btn btn-lg btn-danger me-1" onClick={addAssignment}>
                     + Assignment
                 </button>
 
