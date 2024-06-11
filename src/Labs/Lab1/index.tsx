@@ -19,6 +19,8 @@ export default function Lab1() {
             <Images />
             <Forms />
             <Anchors />
+
+
         </div>
     );
 }

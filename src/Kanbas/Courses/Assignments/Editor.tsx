@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
-import assignmentsData from '../../Database/assignments.json';
+import React, { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import './styles.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { handleSave } from './reducer';
+import { handleSave, setAssignments } from './reducer';
+import * as client from './client';
 
 export default function AssignmentEditor() {
   type Assignment = {
@@ -22,18 +22,31 @@ export default function AssignmentEditor() {
   const assignments = useSelector((state: any) => state.assignments.assignments);
   const assignment = assignments.find((assignment: Assignment) => assignment._id === aid);
 
-  const saveAssignment = () => {
-    const updatedAssignment = { ...assignment, title, details, points, availableFrom, availableUntil, due };
-    dispatch(handleSave(updatedAssignment));
-  };
-
   const [title, setTitle] = useState(assignment?.title || '');
-  const [details, setDetails] = useState(assignment?.details);
+  const [details, setDetails] = useState(assignment?.details || '');
   const [points, setPoints] = useState(assignment?.points || 100);
-  const [availableFrom, setFrom] = useState(assignment?.availableFrom);
-  const [availableUntil, setUntil] = useState(assignment?.availableUntil);
-  const [due, setDue] = useState(assignment?.due);
+  const [availableFrom, setFrom] = useState(assignment?.availableFrom || '');
+  const [availableUntil, setUntil] = useState(assignment?.availableUntil || '');
+  const [due, setDue] = useState(assignment?.due || '');
 
+  const saveAssignment = async () => {
+    try {
+      const updatedAssignment = { 
+        _id: assignment?._id, 
+        course: assignment?.course || cid, 
+        title, 
+        details, 
+        points, 
+        availableFrom, 
+        availableUntil, 
+        due 
+      };
+      const data = await client.updateAssignment(updatedAssignment);
+      dispatch(handleSave(data));
+    } catch (error) {
+      console.error('Error updating assignment:', error);
+    }
+  };
 
   return (
     <div className="container" id="wd-assignments-editor" style={{ height: '80vh', overflowY: 'auto' }}>
@@ -53,13 +66,13 @@ export default function AssignmentEditor() {
             `The assignment is available online
 
 Submit a link to the landing page of your Web application running on Netlify.
-                
+
 The landing page should include the following:
     - Your full name and section
     - Links to each of the lab assignments
     - Link to the Kanbas application
     - Links to all relevant source code repositories
-                
+
 The Kanbas application should include a link to navigate back to the landing page.`}
 
         />
