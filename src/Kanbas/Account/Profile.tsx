@@ -1,3 +1,94 @@
+// import * as client from "./client";
+// import { useState, useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
+// import { useDispatch } from "react-redux";
+// import { setCurrentUser } from "./reducer";
+
+// export default function Profile() {
+//   const [profile, setProfile] = useState<any>({});
+//   const navigate = useNavigate();
+//   const dispatch = useDispatch();
+
+//   const fetchProfile = async () => {
+//     try {
+//       const account = await client.profile();
+//       setProfile(account);
+//     } catch (err: any) {
+//       navigate("/Kanbas/Account/Signin");
+//     }
+//   };
+//   const signout = async () => {
+//     await client.signout();
+//     dispatch(setCurrentUser(null));
+
+//     navigate("/Kanbas/Account/Signin");
+//   };
+
+//   useEffect(() => {
+//     fetchProfile();
+//   }, []);
+//   return (
+//     <div>
+//       <h1>Profile</h1>
+//       {profile && (
+//         <div>
+//           <input
+//             value={profile.username}
+//             onChange={(e) =>
+//               setProfile({ ...profile, username: e.target.value })
+//             }
+//             className="form-control mb-2"
+//           />
+//           <input
+//             value={profile.password}
+//             onChange={(e) =>
+//               setProfile({ ...profile, password: e.target.value })
+//             }
+//             className="form-control mb-2"
+//           />
+//           <input
+//             value={profile.firstName}
+//             onChange={(e) =>
+//               setProfile({ ...profile, firstName: e.target.value })
+//             }
+//             className="form-control mb-2"
+//           />
+//           <input
+//             value={profile.lastName}
+//             onChange={(e) =>
+//               setProfile({ ...profile, lastName: e.target.value })
+//             }
+//             className="form-control mb-2"
+//           />
+//           <input
+//             value={profile.dob}
+//             onChange={(e) => setProfile({ ...profile, dob: e.target.value })}
+//             type="date"
+//             className="form-control mb-2"
+//           />
+//           <input
+//             value={profile.email}
+//             onChange={(e) => setProfile({ ...profile, email: e.target.value })}
+//             className="form-control mb-2"
+//           />
+//           <select
+//             onChange={(e) => setProfile({ ...profile, role: e.target.value })}
+//             className="form-control mb-2"
+//           >
+//             <option value="USER">User</option>{" "}
+//             <option value="ADMIN">Admin</option>
+//             <option value="FACULTY">Faculty</option>{" "}
+//             <option value="STUDENT">Student</option>
+//           </select>
+//         </div>
+//       )}
+//       <button onClick={signout} className="btn btn-danger w-100">
+//         Sign out
+//       </button>
+//     </div>
+//   );
+// }
+
 import * as client from "./client";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -5,7 +96,15 @@ import { useDispatch } from "react-redux";
 import { setCurrentUser } from "./reducer";
 
 export default function Profile() {
-  const [profile, setProfile] = useState<any>({});
+  const [profile, setProfile] = useState({
+    username: '',
+    password: '',
+    firstName: '',
+    lastName: '',
+    dob: '',
+    email: '',
+    role: 'USER'
+  });
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -17,67 +116,61 @@ export default function Profile() {
       navigate("/Kanbas/Account/Signin");
     }
   };
+
   const signout = async () => {
     await client.signout();
     dispatch(setCurrentUser(null));
-
     navigate("/Kanbas/Account/Signin");
   };
 
   useEffect(() => {
     fetchProfile();
   }, []);
+
   return (
     <div>
       <h1>Profile</h1>
       {profile && (
         <div>
           <input
-            value={profile.username}
-            onChange={(e) =>
-              setProfile({ ...profile, username: e.target.value })
-            }
+            value={profile.username || ''}
+            onChange={(e) => setProfile({ ...profile, username: e.target.value })}
             className="form-control mb-2"
           />
           <input
-            value={profile.password}
-            onChange={(e) =>
-              setProfile({ ...profile, password: e.target.value })
-            }
+            value={profile.password || ''}
+            onChange={(e) => setProfile({ ...profile, password: e.target.value })}
             className="form-control mb-2"
           />
           <input
-            value={profile.firstName}
-            onChange={(e) =>
-              setProfile({ ...profile, firstName: e.target.value })
-            }
+            value={profile.firstName || ''}
+            onChange={(e) => setProfile({ ...profile, firstName: e.target.value })}
             className="form-control mb-2"
           />
           <input
-            value={profile.lastName}
-            onChange={(e) =>
-              setProfile({ ...profile, lastName: e.target.value })
-            }
+            value={profile.lastName || ''}
+            onChange={(e) => setProfile({ ...profile, lastName: e.target.value })}
             className="form-control mb-2"
           />
           <input
-            value={profile.dob}
+            value={profile.dob || ''}
             onChange={(e) => setProfile({ ...profile, dob: e.target.value })}
             type="date"
             className="form-control mb-2"
           />
           <input
-            value={profile.email}
+            value={profile.email || ''}
             onChange={(e) => setProfile({ ...profile, email: e.target.value })}
             className="form-control mb-2"
           />
           <select
+            value={profile.role} // Ensure the select has a controlled value
             onChange={(e) => setProfile({ ...profile, role: e.target.value })}
             className="form-control mb-2"
           >
-            <option value="USER">User</option>{" "}
+            <option value="USER">User</option>
             <option value="ADMIN">Admin</option>
-            <option value="FACULTY">Faculty</option>{" "}
+            <option value="FACULTY">Faculty</option>
             <option value="STUDENT">Student</option>
           </select>
         </div>
