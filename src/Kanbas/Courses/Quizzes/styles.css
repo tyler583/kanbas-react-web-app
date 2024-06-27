@@ -1,0 +1,25 @@
+
+.wd-flex-row-container {
+    display: flex;
+    align-items: center;
+}
+
+.icon-align {
+    display: flex;
+    align-items: center;
+}
+
+.icon-container {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+} 
+
+.assignment-details {
+    flex-grow: 1;
+    padding-left: 10px;
+}
+
+.lesson-controls {
+    margin-left: auto;
+}

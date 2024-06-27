@@ -188,6 +188,8 @@ The Kanbas application should include a link to navigate back to the landing pag
         </div>
       </div>
 
+      
+
       <hr />
       <div className="d-flex justify-content-end">
         <Link to={`/Kanbas/Courses/${cid}/Assignments`} id="wd-assignment-cancel" className="btn btn-secondary me-2">Cancel</Link>
